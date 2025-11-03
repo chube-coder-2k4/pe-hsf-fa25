@@ -1,10 +1,7 @@
 package sum25.se180556.pojo;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -14,7 +11,6 @@ import java.time.Year;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @Builder
 @AllArgsConstructor
 public class Computers {
@@ -22,6 +18,7 @@ public class Computers {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int computer_id;
     @Column(length = 100, nullable = false)
+    @Size(min = 5, max = 50, message = "Computer model must be between 5 and 50 characters")
     private String computer_model;
     @Column(length = 50, nullable = false)
     private String type;

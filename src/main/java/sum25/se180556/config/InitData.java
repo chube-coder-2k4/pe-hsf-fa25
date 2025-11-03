@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import sum25.se180556.pojo.Computers;
 import sum25.se180556.pojo.Manufacturers;
 import sum25.se180556.pojo.Users;
-import sum25.se180556.service.ComputersService;
 import sum25.se180556.service.ManufacturersService;
 import sum25.se180556.service.UsersService;
 

@@ -1,7 +1,7 @@
 package sum25.se180556.controller;
 
 import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,10 +11,10 @@ import sum25.se180556.pojo.Users;
 import sum25.se180556.service.UsersService;
 
 @Controller
+@RequiredArgsConstructor
 public class AuthController {
 
-    @Autowired
-    private UsersService us;
+    private final UsersService us;
 
     @GetMapping({"/", "/login"})
     public String showLogin() {

@@ -7,7 +7,7 @@ body {
     padding: 0;
 }
 
-.app-title, .login-form > h1 {
+.app-title, .login-form > h1, .page-title {
     font-size: 25px;
     color: white;
     margin: 12px 0;

@@ -1,67 +1,60 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>List</title>
-  <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <meta charset="UTF-8">
+    <title>chube-coder-2k4 - Computer Management Page</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
-
 <body class="red-bg">
-  <div class="header-right-global">
+<div class="header-right-global">
     <span class="user-greeting yellow-label">Hello, <span th:text="${session.loggedInUser.getEmail()}"></span></span>
     <a th:href="@{/logout}" class="transparent-button logout-button">Logout</a>
-  </div>
+</div>
 
-  <div class="container">
-    <h1 class="yellow-label">List</h1>
+<div class="container">
+    <h1 class="page-title">List</h1>
 
-    <div class="prds-content-wrapper">
-      <div class="top-controls">
+    <div class="top-controls">
         <form th:action="@{/computers}" method="get" class="search-form">
-          <input type="text" th:value="${keyword}" name="keyword" placeholder="Search by some field"/>
-          <button type="submit" class="transparent-button">Search</button>
+            <input type="text" th:value="${keyword}" name="keyword" placeholder="Search by some field"/>
+            <button type="submit" class="transparent-button">Search</button>
         </form>
+    </div>
 
-        </div>
-
-      <div th:if="${session.loggedInUser.role == 'Admin'}" class="admin-controls">
+    <div th:if="${session.loggedInUser.role == 'Admin'}" class="admin-controls">
         <a th:href="@{/computers/create}" class="transparent-button create-button">Create</a>
-      </div>
+    </div>
 
-      <div th:if="${cpts.isEmpty() and param.keyword != null}" class="no-results-message">
+    <div th:if="${cpts.isEmpty() and param.keyword != null}" class="no-results-message">
         No products found matching keyword "<span th:text="${param.keyword}"></span>".
-      </div>
+    </div>
 
-      <div class="prds-table-container">
-        <table>
-          <thead>
-          <tr>
+    <table>
+        <thead>
+        <tr>
             <th class="yellow-label">computer_model</th>
             <th class="yellow-label">type</th>
             <th class="yellow-label">production_year</th>
             <th class="yellow-label">price</th>
             <th class="yellow-label">manufacturer</th>
             <th class="yellow-label" th:if="${session.loggedInUser.role == 'Admin'}">Action</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr th:each="a : ${cpts}">
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="a : ${cpts}">
             <td th:text="${a.computer_model}"></td>
             <td th:text="${a.type}"></td>
             <td th:text="${a.production_year}"></td>
             <td th:text="${a.price}"></td>
             <td th:text="${a.manufacturer.manufacturer_name}"></td>
             <td th:if="${session.loggedInUser.role == 'Admin'}">
-              <a th:href="@{'/computers/edit/' + ${a.computer_id}}" class="transparent-button">Edit</a>
-              <a th:href="@{'/computers/delete/' + ${a.computer_id}}" class="transparent-button"
-                 onclick="return confirm('Are you sure you want to delete this ?');">Delete</a>
+                <a th:href="@{'/computers/edit/' + ${a.computer_id}}" class="transparent-button">Edit</a>
+                <a th:href="@{'/computers/delete/' + ${a.computer_id}}" class="transparent-button"
+                   onclick="return confirm('Are you sure you want to delete this ?');">Delete</a>
             </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

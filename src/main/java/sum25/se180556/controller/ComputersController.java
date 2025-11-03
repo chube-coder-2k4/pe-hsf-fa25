@@ -2,7 +2,7 @@ package sum25.se180556.controller;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,16 +12,12 @@ import sum25.se180556.pojo.Users;
 import sum25.se180556.service.ComputersService;
 import sum25.se180556.service.ManufacturersService;
 
-import java.awt.print.Book;
-
 @Controller
+@RequiredArgsConstructor
 public class ComputersController {
 
-    @Autowired
-    private ComputersService c;
-
-    @Autowired
-    private ManufacturersService m;
+    private final ComputersService c;
+    private final ManufacturersService m;
 
     @GetMapping("/computers")
     public String showList(@RequestParam(name = "keyword", required = false, defaultValue = "") String keyword, Model model, HttpSession ss) {
@@ -30,7 +26,7 @@ public class ComputersController {
             return "redirect:/login";
         }
 
-        if (!keyword.equals("")) {
+        if (!keyword.isEmpty()) {
             model.addAttribute("cpts", c.searchBy(keyword));
         }
         else {

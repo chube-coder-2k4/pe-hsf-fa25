@@ -1,4 +1,3 @@
-<!-- src/main/resources/templates/login.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -9,25 +8,21 @@
 <body class="red-bg login-page">
 <div class="container">
     <h1 class="app-title">StudentCode - Login Page</h1>
-    <div class="login-content-wrapper">
-        <div class="login-form">
-            <h1>Login</h1>
-            <form th:action="@{/auth}" method="post" class="login-fields">
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="text" id="email" name="email" required />
-                </div>
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required />
-                </div>
-                <div th:if="${error}" class="error-message" th:text="${error}">Login Error</div>
-                <div class="form-group-button">
-                    <button type="submit" class="transparent-button">Login</button>
-                </div>
-            </form>
+    <form th:action="@{/auth}" method="post" class="login-form login-fields">
+        <h1>Login</h1>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" required />
         </div>
-    </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+        </div>
+        <div th:if="${error}" class="error-message" th:text="${error}">Login Error</div>
+        <div class="form-group-button">
+            <button type="submit" class="transparent-button">Login</button>
+        </div>
+    </form>
 </div>
 </body>
 </html>
