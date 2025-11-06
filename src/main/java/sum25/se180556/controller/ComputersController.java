@@ -12,6 +12,8 @@ import sum25.se180556.pojo.Users;
 import sum25.se180556.service.ComputersService;
 import sum25.se180556.service.ManufacturersService;
 
+import java.time.Year;
+
 @Controller
 @RequiredArgsConstructor
 public class ComputersController {
@@ -84,7 +86,9 @@ public class ComputersController {
 
     @PostMapping("/computers/save")
     public String save(@Valid @ModelAttribute("selectedOne") Computers cpt, BindingResult result, Model model, @RequestParam("formMode") String formMode) {
-
+        if (cpt.getProduction_year() > Year.now().getValue()) {
+            result.rejectValue("production_year", null, "Production year cannot be in the future");
+        }
         if (result.hasErrors()) {
             model.addAttribute("vars", m.findAll() );
             model.addAttribute("formMode", formMode);

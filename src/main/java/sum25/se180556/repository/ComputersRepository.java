@@ -17,4 +17,6 @@ public interface ComputersRepository extends JpaRepository<Computers, Integer> {
             "LIKE LOWER(CONCAT('%', :keyword, '%'))")
     List<Computers> searchInAllFields(@Param("keyword") String keyword);
 
+//    @Query("SELECT c FROM Computers c WHERE c.isActive = true")
+//    List<Computers> findAllBy_isActive();
 }

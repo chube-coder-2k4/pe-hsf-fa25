@@ -29,6 +29,19 @@ public class ComputersService {
         cr.deleteById(id);
     }
 
+//    public List<Computers> findAll() {
+//        return cr.findAllBy_isActive();
+//    }
+//
+//    public void delete(Integer id) {
+//        boolean a = existsById(id);
+//        if (a) {
+//            Computers c = findById(id);
+//            c.setActive(false);
+//            save(c);
+//        }
+//    }
+
     public boolean existsById(Integer id) {
         return cr.existsById(id);
     }

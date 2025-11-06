@@ -30,11 +30,7 @@ public class Computers {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manufacturer_id", nullable = false)
     private Manufacturers manufacturer;
-
-    @AssertTrue(message = "Production year cannot be in the future")
-    public boolean isProductionYearValid() {
-        return production_year <= Year.now().getValue();
-    }
+//    private boolean isActive = true;
 
     public Computers(String computer_model, String type, int production_year, BigDecimal price) {
         this.computer_model = computer_model;
@@ -42,4 +38,12 @@ public class Computers {
         this.production_year = production_year;
         this.price = price;
     }
+
+//    public Computers(String computer_model, String type, int production_year, BigDecimal price, boolean isActive) {
+//        this.computer_model = computer_model;
+//        this.type = type;
+//        this.production_year = production_year;
+//        this.price = price;
+//        this.isActive = isActive;
+//    }
 }
