@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xml:lang="en">
 <head>
     <meta charset="UTF-8" />
     <title>StudentCode - Login Page</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
-<body class="red-bg login-page">
-<div class="container">
+<body>
+<div>
     <h1 class="app-title">StudentCode - Login Page</h1>
-    <form th:action="@{/auth}" method="post" class="login-form login-fields">
+    <form th:action="@{/auth}" method="post">
         <h1>Login</h1>
-        <div class="form-group">
+        <div>
             <label for="email">Email:</label>
             <input type="text" id="email" name="email" required />
         </div>
-        <div class="form-group">
+        <div>
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required />
         </div>
-        <div th:if="${error}" class="error-message" th:text="${error}">Login Error</div>
-        <div class="form-group-button">
-            <button type="submit" class="transparent-button">Login</button>
+        <div th:if="${error}" th:text="${error}">Login Error</div>
+        <div>
+            <button type="submit">Login</button>
         </div>
     </form>
 </div>

@@ -1,58 +1,53 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xml:lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>chube-coder-2k4 - Computer Management Page</title>
+    <title>2k4 - Computer Management Page</title>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
-<body class="red-bg">
-<div class="container">
-    <main class="form-container">
+<body>
+<div>
+    <main>
         <h1 class="page-title" th:text="${formMode == 'edit'} ? 'Edit' : 'Create'">Edit | Create</h1>
-
         <form th:action="@{'/computers/save'}" method="POST" th:object="${selectedOne}">
-            <input type="hidden" th:field="*{computer_id}" />
+            <input type="hidden" th:field="*{computer_id}"/>
             <input type="hidden" name="formMode" th:value="${formMode}">
-
-            <div class="form-group">
-                <label for="computer_model" class="yellow-label">computer_model:</label>
-                <input type="text" id="computer_model" th:field="*{computer_model}" required class="long-input" />
-                <span th:if="${#fields.hasErrors('computer_model')}" th:errors="*{computer_model}" class="field-error-message">Name is required!</span>
+            <div>
+                <label for="computer_model">computer_model:</label>
+                <input type="text" id="computer_model" th:field="*{computer_model}" required/>
+                <span th:if="${#fields.hasErrors('computer_model')}"
+                      th:errors="*{computer_model}">Name is required!</span>
             </div>
-
-            <div class="form-group">
-                <label for="type" class="yellow-label">type:</label>
-                <input type="text" id="type" th:field="*{type}" required class="medium-input" />
-                <span th:if="${#fields.hasErrors('type')}" th:errors="*{type}" class="field-error-message"></span>
+            <div>
+                <label for="type">type:</label>
+                <input type="text" id="type" th:field="*{type}" required/>
+                <span th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></span>
             </div>
-
-            <div class="form-group">
-                <label for="production_year" class="yellow-label">production_year:</label>
-                <input type="number" id="production_year" th:field="*{production_year}" required class="short-input" />
-                <span th:if="${#fields.hasErrors('production_year')}" th:errors="*{production_year}" class="field-error-message"></span>
+            <div>
+                <label for="production_year">production_year:</label>
+                <input type="text" id="production_year" th:field="*{production_year}" required/>
+                <span th:if="${#fields.hasErrors('production_year')}" th:errors="*{production_year}"></span>
             </div>
-
-            <div class="form-group">
-                <label for="price" class="yellow-label">Price:</label>
-                <input type="number" id="price" th:field="*{price}" required step="any" class="short-input" />
-                <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="field-error-message">Price must be between 1...1000 </span>
+            <div>
+                <label for="price">Price:</label>
+                <input type="number" id="price" th:field="*{price}" required step="any"/>
+                <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price must be between 1...1000 </span>
             </div>
-
-            <div class="form-group">
-                <label for="manufacturer_id" class="yellow-label">manufacturer:</label>
-                <select id="manufacturer_id" th:field="*{manufacturer.manufacturer_id}" required class="medium-input">
+            <div>
+                <label for="manufacturer_id">manufacturer:</label>
+                <select id="manufacturer_id" th:field="*{manufacturer.manufacturer_id}" required>
                     <option th:each="c : ${vars}"
                             th:value="${c.manufacturer_id}"
                             th:text="${c.manufacturer_name}"
                             th:selected="${selectedOne.manufacturer != null and selectedOne.manufacturer.manufacturer_id == c.manufacturer_id}">
                     </option>
                 </select>
-                <span th:if="${#fields.hasErrors('manufacturer.manufacturer_id')}" th:errors="*{manufacturer.manufacturer_id}" class="field-error-message"></span>
+                <span th:if="${#fields.hasErrors('manufacturer.manufacturer_id')}"
+                      th:errors="*{manufacturer.manufacturer_id}"></span>
             </div>
-
-            <div class="form-group-button">
-                <button type="submit" class="transparent-button">Save</button>
-                <a th:href="@{/computers}" class="transparent-button">Cancel</a>
+            <div>
+                <button type="submit">Save</button>
+                <a th:href="@{/computers}">Cancel</a>
             </div>
         </form>
     </main>
