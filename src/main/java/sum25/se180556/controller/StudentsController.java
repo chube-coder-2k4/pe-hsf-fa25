@@ -7,21 +7,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import sum25.se180556.pojo.Computers;
+import sum25.se180556.pojo.Students;
 import sum25.se180556.pojo.Users;
-import sum25.se180556.service.ComputersService;
-import sum25.se180556.service.ManufacturersService;
+import sum25.se180556.service.CoursesService;
+import sum25.se180556.service.StudentsService;
 
 import java.time.Year;
 
 @Controller
 @RequiredArgsConstructor
-public class ComputersController {
+public class StudentsController {
 
-    private final ComputersService c;
-    private final ManufacturersService m;
+    private final StudentsService stuService;
+    private final CoursesService courService;
 
-    @GetMapping("/computers")
+    @GetMapping("/students")
     public String showList(@RequestParam(name = "keyword", required = false, defaultValue = "") String keyword, Model model, HttpSession ss) {
         Users acc = (Users) ss.getAttribute("loggedInUser");
         if (acc == null) {
@@ -29,18 +29,18 @@ public class ComputersController {
         }
 
         if (!keyword.isEmpty()) {
-            model.addAttribute("cpts", c.searchBy(keyword));
+            model.addAttribute("cpts", stuService.searchBy(keyword));
         }
         else {
 
-            model.addAttribute("cpts", c.findAll());
+            model.addAttribute("cpts", stuService.findAll());
         }
         model.addAttribute("keyword", keyword);
 
-        return "computers";
+        return "students";
     }
 
-    @GetMapping("/computers/edit/{id}")
+    @GetMapping("/students/edit/{id}")
     public String edit(@PathVariable("id") Integer id, Model model, HttpSession ss) {
 
         Users acc = (Users) ss.getAttribute("loggedInUser");
@@ -49,20 +49,20 @@ public class ComputersController {
         }
 
         if (acc.getRole().equals("Staff")) {
-            return "redirect:/computers";
+            return "redirect:/";
         }
 
-        model.addAttribute("selectedOne", c.findById(id));
+        model.addAttribute("selectedOne", stuService.findById(id));
 
-        model.addAttribute("vars", m.findAll());
+        model.addAttribute("vars", courService.findAll());
 
         model.addAttribute("formMode", "edit");
 
-        return "computers-form";
+        return "students-form";
     }
 
 
-    @GetMapping("/computers/create")
+    @GetMapping("/students/create")
     public String create(Model model, HttpSession ss) {
 
 
@@ -72,43 +72,41 @@ public class ComputersController {
         }
 
         if (acc.getRole().equals("Staff")) {
-            return "redirect:/computers";
+            return "redirect:/students";
         }
 
-        model.addAttribute("selectedOne", new Computers());
+        model.addAttribute("selectedOne", new Students());
 
-        model.addAttribute("vars", m.findAll() );
+        model.addAttribute("vars", courService.findAll() );
 
         model.addAttribute("formMode", "new");
 
-        return "computers-form";
+        return "students-form";
     }
 
-    @PostMapping("/computers/save")
-    public String save(@Valid @ModelAttribute("selectedOne") Computers cpt, BindingResult result, Model model, @RequestParam("formMode") String formMode) {
-        if (cpt.getProduction_year() > Year.now().getValue()) {
-            result.rejectValue("production_year", null, "Production year cannot be in the future");
-        }
+    @PostMapping("/students/save")
+    public String save(@Valid @ModelAttribute("selectedOne") Students cpt, BindingResult result, Model model, @RequestParam("formMode") String formMode) {
+
         if (result.hasErrors()) {
-            model.addAttribute("vars", m.findAll() );
+            model.addAttribute("vars", courService.findAll() );
             model.addAttribute("formMode", formMode);
-            return "computers-form";
+            return "students-form";
         }
         if (formMode.equals("new")) {
-            if (c.existsById(cpt.getComputer_id())) {
-                model.addAttribute("vars", m.findAll() );
+            if (stuService.existsById(cpt.getId())) {
+                model.addAttribute("vars", courService.findAll() );
                 model.addAttribute("formMode", formMode);
                 model.addAttribute("duplicated", "Duplicated Id. Input another one!");
-                return "computers-form";
+                return "students-form";
             }
         }
 
-        c.save(cpt);
+        stuService.save(cpt);
 
-        return "redirect:/computers";
+        return "redirect:/students";
     }
 
-    @GetMapping("/computers/delete/{id}")
+    @GetMapping("/students/delete/{id}")
     public String delete(@PathVariable("id") Integer id, HttpSession ss) {
 
         Users acc = (Users) ss.getAttribute("loggedInUser");
@@ -117,10 +115,10 @@ public class ComputersController {
         }
 
         if (acc.getRole().equals("Staff")) {
-            return "redirect:/computers";
+            return "redirect:/students";
         }
-        c.delete(id);
-        return "redirect:/computers";
+        stuService.delete(id);
+        return "redirect:/students";
     }
 
 }

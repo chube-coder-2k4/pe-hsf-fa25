@@ -8,14 +8,14 @@ import sum25.se180556.repository.UsersRepository;
 @Service
 @RequiredArgsConstructor
 public class UsersService {
-    private final UsersRepository ur;
+    private final UsersRepository userrepo;
 
     public void save(Users u) {
-        ur.save(u);
+        userrepo.save(u);
     }
 
     public Users auth(String email, String password) {
-        Users u = ur.findByEmail(email);
+        Users u = userrepo.findByEmail(email);
         if(u == null) return null;
         if(!u.getPassword().equals(password)) return null;
         if(u.getRole().equals("Member")) return null;

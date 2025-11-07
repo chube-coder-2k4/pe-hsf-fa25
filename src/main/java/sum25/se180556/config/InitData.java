@@ -4,18 +4,19 @@ package sum25.se180556.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import sum25.se180556.pojo.Computers;
-import sum25.se180556.pojo.Manufacturers;
+import sum25.se180556.pojo.Courses;
+import sum25.se180556.pojo.Students;
 import sum25.se180556.pojo.Users;
-import sum25.se180556.service.ManufacturersService;
+import sum25.se180556.service.CoursesService;
 import sum25.se180556.service.UsersService;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Component
 @RequiredArgsConstructor
 public class InitData implements CommandLineRunner {
-    private final ManufacturersService m;
+    private final CoursesService m;
     private final UsersService u;
 
     @Override
@@ -24,14 +25,51 @@ public class InitData implements CommandLineRunner {
         Users us2 = new Users("staff@laptopshop.com", "@2", "Staff");
         Users us3 = new Users("member@laptopshop.com", "@3", "Member");
 
-        Manufacturers ma1 = new Manufacturers("Dell", "USA");
-        Manufacturers ma2 = new Manufacturers("Lenovo", "China");
-        Manufacturers ma3 = new Manufacturers("HP", "USA");
+        Courses ma1 = new Courses("Dell", "USA","HAHA",20,new BigDecimal("20.0"), LocalDate.of(2026,03,02));
+        Courses ma2 = new Courses("HAHA", "USA","HAHA",20,new BigDecimal("20.0"), LocalDate.of(2026,03,02));
+        Courses ma3 = new Courses("LMAO", "USA","HAHA",20,new BigDecimal("20.0"), LocalDate.of(2026,03,02));
 
-        Computers co1 = new Computers("XPS 13", "Ultrabook", 2023, new BigDecimal("1299.99"));
-        Computers co2 = new Computers("ThinkPad X1 Carbon", "Business Laptop", 2023, new BigDecimal("1499.99"));
-        Computers co3 = new Computers("Pavilion 15", "Consumer Laptop", 2022, new BigDecimal("699.99"));
-        Computers co4 = new Computers("Inspiron 14", "Budget Laptop", 2023, new BigDecimal("549.99"));
+
+        Students co1 = new Students(
+                "Nguyen Van A",
+                "Male",
+                LocalDate.of(2003, 5, 21),
+                "0987123456",
+                "vana@gmail.com",
+                "123 Le Loi, HCM",
+                85
+        );
+
+        Students co2 = new Students(
+                "Tran Thi B",
+                "Female",
+                LocalDate.of(2002, 11, 10),
+                "0909234567",
+                "thib@gmail.com",
+                "45 Nguyen Hue, HCM",
+                90
+        );
+
+        Students co3 = new Students(
+                "Le Minh C",
+                "Male",
+                LocalDate.of(2004, 2, 3),
+                "0978123987",
+                "minhc@gmail.com",
+                "12 Tran Phu, Ha Noi",
+                78
+        );
+
+        Students co4 = new Students(
+                "Pham Thi D",
+                "Female",
+                LocalDate.of(2003, 8, 30),
+                "0912345678",
+                "thid@gmail.com",
+                "89 Vo Van Tan, Da Nang",
+                88
+        );
+
 
         u.save(us1);
         u.save(us2);

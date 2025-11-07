@@ -4,18 +4,18 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import sum25.se180556.pojo.Computers;
+import sum25.se180556.pojo.Students;
 
 import java.util.List;
 
 @Repository
-public interface ComputersRepository extends JpaRepository<Computers, Integer> {
+public interface StudentsRepository extends JpaRepository<Students, Integer> {
 //    public List<Computers> getAllByOrderByCreatedAtDesc();
 
-    @Query("SELECT c FROM Computers c WHERE " +
-            "LOWER(CONCAT(c.computer_model, ' ', c.type, ' ', c.manufacturer.manufacturer_name)) " +
+    @Query("SELECT c FROM Students c WHERE " +
+            "LOWER(CONCAT(c.address,' ', c.course.courseName)) " +
             "LIKE LOWER(CONCAT('%', :keyword, '%'))")
-    List<Computers> searchInAllFields(@Param("keyword") String keyword);
+    List<Students> searchInAllFields(@Param("keyword") String keyword);
 
 //    @Query("SELECT c FROM Computers c WHERE c.isActive = true")
 //    List<Computers> findAllBy_isActive();

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xml:lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2k4 - students Management Page</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div>
+    <main>
+        <h1 class="page-title" th:text="${formMode == 'edit'} ? 'Edit' : 'Create'">Edit | Create</h1>
+        <form th:action="@{'/students/save'}" method="POST" th:object="${selectedOne}">
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" name="formMode" th:value="${formMode}">
+            <div>
+                <label for="fullName">fullName:</label>
+                <input type="text" id="fullName" th:field="*{fullName}" required/>
+                <span th:if="${#fields.hasErrors('fullName')}"
+                      th:errors="*{fullName}">Name is required!</span>
+            </div>
+            <div>
+                <label for="gender">type:</label>
+                <input type="text" id="gender" th:field="*{gender}" required/>
+                <span th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></span>
+            </div>
+            <div>
+                <label for="birthDate">birthDate:</label>
+                <input type="date" id="birthDate" th:field="*{birthDate}" required/>
+                <span th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}"></span>
+            </div>
+            <div>
+                <label for="phone">Price:</label>
+                <input type="number" id="phone" th:field="*{phone}" required step="any"/>
+                <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Price must be between 1...1000 </span>
+            </div>
+            <div>
+                <label for="email">email:</label>
+                <input type="text" id="email" th:field="*{email}" required step="any"/>
+                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Price must be between 1...1000 </span>
+            </div>
+            <div>
+                <label for="address">address:</label>
+                <input type="text" id="address" th:field="*{address}" required step="any"/>
+                <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Price must be between 1...1000 </span>
+            </div>
+            <div>
+                <label for="averageScore">averageScore:</label>
+                <input type="text" id="averageScore" th:field="*{averageScore}" required step="any"/>
+                <span th:if="${#fields.hasErrors('averageScore')}" th:errors="*{averageScore}">Price must be between 1...1000 </span>
+            </div>
+            <div>
+                <label for="course">course:</label>
+                <select id="course" th:field="*{course}" required>
+                    <option th:each="c : ${vars}"
+                            th:value="${c.id}"
+                            th:text="${c.courseName}"
+                            th:selected="${selectedOne.course != null and selectedOne.course.id == c.id}">
+                    </option>
+                </select>
+                <span th:if="${#fields.hasErrors('course.id')}"
+                      th:errors="*{course.id}"></span>
+            </div>
+            <div>
+                <button type="submit">Save</button>
+                <a th:href="@{/students}">Cancel</a>
+            </div>
+        </form>
+    </main>
+</div>
+</body>
+</html>

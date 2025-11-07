@@ -35,7 +35,7 @@ public class AuthController {
             return "login";
         }
         session.setAttribute("loggedInUser", acc);
-        return "redirect:/computers";
+        return "redirect:/students";
     }
 
 }

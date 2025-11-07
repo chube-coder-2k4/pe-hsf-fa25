@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en" xml:lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>2k4 - Computer Management Page</title>
+    <title>2k4 - students Management Page</title>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
@@ -14,14 +14,14 @@
 <div>
     <h1 class="page-title">List</h1>
     <div>
-        <form th:action="@{/computers}" method="get">
+        <form th:action="@{/students}" method="get">
             <input type="text" th:value="${keyword}" name="keyword" placeholder="Search by some field"/>
             <button type="submit">Search</button>
         </form>
     </div>
 
     <div th:if="${session.loggedInUser.role == 'Admin'}">
-        <a th:href="@{/computers/create}">Create</a>
+        <a th:href="@{/students/create}">Create</a>
     </div>
 
     <div th:if="${cpts.isEmpty() and param.keyword != null}">
@@ -30,25 +30,34 @@
 
     <table th:if="${!cpts.isEmpty()}" border="1">
         <thead>
+<!--        String fullName, String gender, LocalDate birthDate, String phone, String email, String address, int averageScore-->
         <tr>
-            <th>computer_model</th>
-            <th>type</th>
-            <th>production_year</th>
-            <th>price</th>
-            <th>manufacturer</th>
+            <th>fullName</th>
+            <th>gender</th>
+            <th>birthDate</th>
+            <th>phone</th>
+            <th>email</th>
+            <th>address</th>
+            <th>averageScore</th>
+            <th>courses</th>
+
             <th th:if="${session.loggedInUser.role == 'Admin'}">Action</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="a : ${cpts}">
-            <td th:text="${a.computer_model}"></td>
-            <td th:text="${a.type}"></td>
-            <td th:text="${a.production_year}"></td>
-            <td th:text="${a.price}"></td>
-            <td th:text="${a.manufacturer.manufacturer_name}"></td>
+            <td th:text="${a.fullName}"></td>
+            <td th:text="${a.gender}"></td>
+            <td th:text="${a.birthDate}"></td>
+            <td th:text="${a.phone}"></td>
+            <td th:text="${a.email}"></td>
+            <td th:text="${a.address}"></td>
+            <td th:text="${a.averageScore}"></td>
+            <td th:text="${a.course.courseName}"></td>
+
             <td th:if="${session.loggedInUser.role == 'Admin'}">
-                <a th:href="@{'/computers/edit/' + ${a.computer_id}}">Edit</a>
-                <a th:href="@{'/computers/delete/' + ${a.computer_id}}" onclick="return confirm('Are you sure you want to delete this ?');">Delete</a>
+                <a th:href="@{'/students/edit/' + ${a.id}}">Edit</a>
+                <a th:href="@{'/students/delete/' + ${a.id}}" onclick="return confirm('Are you sure you want to delete this ?');">Delete</a>
             </td>
         </tr>
         </tbody>
